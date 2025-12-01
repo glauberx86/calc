@@ -3,7 +3,7 @@ section .data
   len equ $- msg
   msg2 db 'Input 2:', 0xA
   len2 equ $- msg2
-  msg_op db 'Escolha operacao (1 = soma, 2 = subtracao, 3 = multiplicacao, 4 = divisao): ', 0xA
+  msg_op db 'Escolha operacao (1 = soma, 2 = subtracao, 3 = multiplicacao, 4 = divisao, 0 = sair): ', 0xA
   len_op equ $- msg_op
   msg_res db 'Resultado: ', 0xA
   len_res equ $- msg_res
@@ -42,6 +42,8 @@ novo_calculo:
 
   ; Valida operacao
   mov al, [op]
+  cmp al, '0'
+  je saida
   cmp al, '1'
   je ler_numeros
   cmp al, '2'
@@ -83,6 +85,8 @@ ler_numeros:
 
 processa_op:
   mov al, [op]
+  cmp al, '0'
+  je saida
   cmp al, '1'
   je faz_soma
   cmp al, '2'
